@@ -1,3 +1,20 @@
+Student = {
+        "Id": "",
+        "Name": "",
+        "DoB": ""
+    }
+
+course = {
+        "Id": "",
+        "Name": "",
+        "Mark": []
+    }
+
+mark = {
+        "Name": "",
+        "Mark": 0.0
+    }
+
 print('Welcome to Student Management simulator!')
 
 def initStudyGroup():
@@ -5,13 +22,7 @@ def initStudyGroup():
 
     return studyGroup
 
-def addStudents(studyGroup):
-    Student = {
-        "Id": "",
-        "Name": "",
-        "DoB": ""
-    }
-    
+def addStudents(studyGroup):    
     id = input("Id: ")
     Student.update({"Id": id})
     name = input("Name: ")
@@ -27,13 +38,7 @@ def initCourses():
 
     return Courses
 
-def addCourse(Courses):
-    course = {
-        "Id": "",
-        "Name": "",
-        "Mark": []
-    }
-    
+def addCourse(Courses):    
     id = input("Id: ")
     course.update({"Id": id})
     name = input("Name: ")
@@ -42,56 +47,67 @@ def addCourse(Courses):
     Courses.append(course)
 
 def displayStudent(studyGroup):
-    i = 0
-    for i in studyGroup:
-        print (studyGroup.get("Id") + " : " + studyGroup.get("Name"))
+    for s in studyGroup:
+        print(s.get("Id") + " : " + s.get("Name"))
+
+def displayCourses(Courses):
+    for c in Courses:
+        print(c.get("Id") + " : " + c.get("Name"))
 
 def enrollCourse(studyGroup, Courses):
-    mark = {
-        "Name": "",
-        "Mark": 0.0
-    }
-
     print("Which course are they enrolling for?")
-    i = 0
-    for i in Courses:
-        print("   " + i+1 + " : " + Courses[i].get("Name") )
+    displayCourses(Courses)
     
-    n = input()
-    while (n > Courses.len()+1):
-        print("Course not found! Try another one?")
-        n = input()
+    not_found_course = True
+    n = (str)(input())
+    while not_found_course:
+        for c in Courses:
+            if n == c.get("Id"):
+                not_found_course = False
+                break
+        if(not_found_course):
+            print("Course not found! Try another one?")
+            n = input()
     
     print("Who will enroll in this course?")
-    
+    displayStudent(studyGroup)
 
-    
-    id = input()
-    i = 0
-    for i in studyGroup:
-        if studyGroup[i]("Id") == id:
-            mark.update({"Name": studyGroup[i].get("Name")})
-            Courses[n-1]["Mark"].append(mark)
+    id = (str)(input())
+    for s in studyGroup:
+        if s.get("Id") == id:
+            mark.update({"Name": s.get("Name")})
+            c["Mark"].append(mark)
 
-    print("who else will enroll in this course")
+    print("Who else will enroll in this course")
     print("0 : No one else.")
-    id = input()
+    displayStudent(studyGroup)
+
+    id = (str)(input())
     while id != 0:
-        i = 0
-        for i in studyGroup:
-            if studyGroup[i]("Id") == id:
-                mark.update({"Name": studyGroup[i].get("Name")})
-                Courses[n-1]["Mark"].append(mark)
+        for s in studyGroup:
+            if s.get("Id") == id:
+                mark.update({"Name": s.get("Name")})
+                c["Mark"].append(mark)
+        print("Who else will enroll in this course")
+        print("0 : No one else.")
+        displayStudent(studyGroup)
+        id = (str)(input())
+        if id == 0:
+            break
+    
+
+    
 
     
     
 
 
 studyGroup = initStudyGroup()
-Courses = initCourses()
-
 addStudents(studyGroup)
-addStudents(studyGroup)
-addStudents(studyGroup)
-
 displayStudent(studyGroup)
+
+Courses = initCourses()
+addCourse(Courses)
+displayCourses(Courses)
+
+enrollCourse(studyGroup, Courses)
