@@ -9,7 +9,7 @@ def options():
     4 Add course to study.
     5 Add student to course.
     6 Mark student in the course.
-    7 Get student GPA.
+    
 --------------------------------------------
     """)
     option = int(input())
@@ -34,6 +34,9 @@ def StudentMarkManagement():
             joinCourse()
         elif option == 6:
             markStudent()
+        elif option == 7:
+            f = open("students.txt", "r")
+            print(f.read())
         else:
             print("Invalid option!!!")
         print("--------------------------------------------")

@@ -22,6 +22,10 @@ def addStudents():
         student = Student(id, name, dob)
         AllStudents.append(student)
 
+        f = open("students.txt", "a")
+        f.write(f"{id} {name} {dob} \n")
+        f.close()
+
 def addCourses():
     n = (int)(input("How many course(s) you want to add? "))
     for i in range(n):
@@ -30,6 +34,10 @@ def addCourses():
         credit = (int)(input("Course's credit? "))
         course = Course(id, name, credit)
         AllCourses.append(course)
+
+        f = open("courses.txt", "a")
+        f.write(f"{id} {name} {credit} \n")
+        f.close()
 
 def searchId(list, id):
     for i in list:

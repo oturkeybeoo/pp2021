@@ -297,3 +297,7 @@ def StudentMarkManagement():
         print("--------------------------------------------")
 
 StudentMarkManagement()
+
+# def main(stdscr):
+
+# curses.wrapper(main)
