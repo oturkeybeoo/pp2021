@@ -1,3 +1,13 @@
-import output
+from output import *
+from input import *
+import zipfile
+import os
 
-output.StudentMarkManagement()
+if os.path.isfile("students.dat"):
+    with zipfile.ZipFile("students.dat", "r") as zf:
+        zf.extractall()
+
+readStudent()
+readCourse()
+
+StudentMarkManagement()

@@ -3,6 +3,7 @@ from input import *
 
 def options():
     print("""What do yo want to do?:
+    0 No I want to exit
     1 List students.
     2 List courses.
     3 Add student to the study group.
@@ -22,6 +23,9 @@ def StudentMarkManagement():
         for student in AllStudents:
             calculateGPA(student)
         option = options()
+        if option == 0:
+            compressFile()
+            break
         if option == 1:
             display(AllStudents)
         elif option == 2:

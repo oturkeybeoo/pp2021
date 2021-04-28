@@ -21,7 +21,7 @@ class Student:
     def setName(self, name):
         self.Name = name
 
-    def setBoB(self, dob):
+    def setDoB(self, dob):
         self.DoB = dob
     
     def setGPA(self, gpa):
@@ -74,13 +74,13 @@ class Student:
 class Course:
     Id: int
     Name: str
-    Credit: int
+    Credits: int
     StudentsList: []
 
     def __init__(self, id, name, credit):
         self.Id = id
         self.Name = name
-        self.Credit = credit
+        self.Credits = credit
         self.StudentsList = []
     
     def setId(self, id):
