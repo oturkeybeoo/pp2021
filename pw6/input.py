@@ -1,6 +1,7 @@
 from domain import Student, Course, Mark
 import math
 import zipfile
+import pickle
 
 AllStudents = []
 AllCourses = []
@@ -91,28 +92,22 @@ def calculateGPA(student):
     student.GPA = round(gpa)
 
 def writeCourse():
-    f = open("courses.txt", "a")
-    for course in AllCourses:
-        f.write(f"{course.getId()} {course.getName()} {course.getCredit()} \n")
-    f.close()
+    pickle.dump(AllCourses, open("courses.txt", "ab"))
 
 def writeStudent():
-    f = open("students.txt", "a")
-    for student in AllStudents:
-        f.write(f"{student.getId()} {student.getName()} {student.getDoB()} {student.getGPA()} \n")
-    f.close()
+    pickle.dump(AllStudents, open("students.txt", "ab"))
 
 def readCourse():
-    f = open("courses.txt", "r")
-    for line in f.readlines():
+    f = pickle.load(open("courses.txt", "rb"))
+    for line in f:
         info = line.split()
         print(info)
         course = Student((int)(info[0]), info[1], info[2])
         AllCourses.append(course)
-    
-def readCourse():
-    f = open("students.txt", "r")
-    for line in f.readlines():
+
+def readStudent():
+    f = pickle.load(open("students.txt", "rb"))
+    for line in f:
         info = line.split()
         student = Student((int)(info[0]), info[1], info[2])
         student.setGPA((float)(info[3]))
