@@ -110,7 +110,7 @@ def readCourse():
         course = Student((int)(info[0]), info[1], info[2])
         AllCourses.append(course)
     
-def readCourse():
+def readStudent():
     f = open("students.txt", "r")
     for line in f.readlines():
         info = line.split()

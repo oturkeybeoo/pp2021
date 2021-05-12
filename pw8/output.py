@@ -1,4 +1,5 @@
-from input import calculateGPA, writeCourse, writeStudent, compressFile, display, addStudents, addCourses, joinCourse, markStudent, AllStudents, AllCourses
+import domain
+from input import *
 
 def options():
     print("""What do yo want to do?:
@@ -23,8 +24,6 @@ def StudentMarkManagement():
             calculateGPA(student)
         option = options()
         if option == 0:
-            writeCourse()
-            writeStudent()
             compressFile()
             break
         if option == 1:

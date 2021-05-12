@@ -1,8 +1,7 @@
 from domain import Student, Course, Mark
 import math
 import zipfile
-import pickle
-import numpy
+import threading
 
 AllStudents = []
 AllCourses = []
@@ -23,6 +22,7 @@ def addStudents():
         dob = (str)(input("Student's Date of Birth? "))
         student = Student(id, name, dob)
         AllStudents.append(student)
+        writeStudent()
 
 def addCourses():
     n = (int)(input("How many course(s) you want to add? "))
@@ -32,6 +32,7 @@ def addCourses():
         credit = (int)(input("Course's credit? "))
         course = Course(id, name, credit)
         AllCourses.append(course)
+        writeCourse()
 
 def searchId(list, id):
     for i in list:
@@ -91,26 +92,33 @@ def calculateGPA(student):
     student.GPA = round(gpa)
 
 def writeCourse():
-    pickle.dump(AllCourses, open("courses.pickle", "a"))
+    f = open("courses.txt", "a")
+    for course in AllCourses:
+        f.write(f"{course.getId()} {course.getName()} {course.getCredit()} \n")
+    f.close()
 
 def writeStudent():
-    pickle.dump(AllStudents, open("students.pickle", "a"))
+    f = open("students.txt", "a")
+    for student in AllStudents:
+        f.write(f"{student.getId()} {student.getName()} {student.getDoB()} {student.getGPA()} \n")
+    f.close()
 
-def readCourse():
-    f = pickle.load(open("courses.pickle", "r"))
-    for line in f:
-        info = line.split()
-        print(info)
-        course = Student((int)(info[0]), info[1], info[2])
-        AllCourses.append(course)
-
-def readStudent():
-    f = pickle.load(open("students.pickle", "r"))
-    for line in f:
-        info = line.split()
-        student = Student((int)(info[0]), info[1], info[2])
-        student.setGPA((float)(info[3]))
-        AllStudents.append(student)
+def readCourse(lock):
+    with lock:
+        f = open("courses.txt", "r")
+        for line in f.readlines():
+            info = line.split()
+            course = Student((int)(info[0]), info[1], info[2])
+            AllCourses.append(course)
+    
+def readStudent(lock):
+    with lock:
+        f = open("students.txt", "r")
+        for line in f.readlines():
+            info = line.split()
+            student = Student((int)(info[0]), info[1], info[2])
+            student.setGPA((float)(info[3]))
+            AllStudents.append(student)
 
 def compressFile():
     with zipfile.ZipFile("students.dat", "w") as zf:
